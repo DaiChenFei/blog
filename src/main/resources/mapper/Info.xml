@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daofei.mapper.InfoMapper">
+
+    <select id="selectInfo" resultType="Info">
+        select * from   info
+    </select>
+    <update id="updateInfo" parameterType="Info" >
+        update info set name=#{name},nickname=#{nickname},qq=#{qq},wxurl=#{wxurl},info=#{info},email=#{email},job=#{job}
+    </update>
+    <update id="updateInfoImg" parameterType="string" >
+        update info set imgurl=#{imgurl}
+    </update>
+</mapper>
+

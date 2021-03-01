@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daofei.mapper.CollectMapper">
+
+    <select id="selectCollectByUid" resultType="Collect">
+        select c.id,c.uid,c.aid,a.title,a.abscontent from collect c,article a,user u where c.uid=u.id and a.id=c.aid and c.uid=#{id}
+    </select>
+    <select id="selectCollectById" resultType="Collect">
+        select * from collect where aid=#{id}
+    </select>
+
+
+    <delete id="deleteCollectById" parameterType="_int" >
+        delete from collect where id= #{id}
+    </delete>
+    <delete id="deleteCollectByAid" parameterType="_int" >
+        delete from collect where aid= #{aid}
+    </delete>
+    <insert id="addCollect"  parameterType="Collect" >
+         insert into collect (uid,aid) values (#{uid},#{aid})
+    </insert>
+
+</mapper>
+

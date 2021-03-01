@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>个人收藏</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="./layui/css/layui.css"  media="all">
+    <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+    <link rel="stylesheet" href="css/fenye.css">
+    <link href="css/base.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <link href="css/m.css" rel="stylesheet">
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <link rel="stylesheet" href="css/font.css">
+    <link rel="stylesheet" type="text/css" href="./layui/css/layui.css" media="all">
+    <link rel="stylesheet" type="text/css" href="./css/comment.css" media="all">
+    <style>
+        .tb{
+            color: white;
+        }
+        .btn-ic{
+            float:right;
+        }
+    </style>
+    <script>
+        window.onload = function ()
+        {
+            var oH2 = document.getElementsByTagName("h2")[0];
+            var oUl = document.getElementsByTagName("ul")[0];
+            oH2.onclick = function ()
+            {
+                var style = oUl.style;
+                style.display = style.display == "block" ? "none" : "block";
+                oH2.className = style.display == "block" ? "open" : ""
+            }
+        }
+    </script>
+</head>
+<body>
+<header>
+    <div class="tophead">
+        <div class="logo"><a href="index.html">DCF个人博客</a></div>
+        <div id="mnav">
+            <h2><span class="navicon"></span></h2>
+            <ul>
+                <li><a href="index.html">网站首页</a></li>
+
+
+                <li><a href="gbook.html">留言</a></li>
+            </ul>
+        </div>
+        <nav class="topnav" id="topnav">
+            <ul>
+                <li><a href="index.html">网站首页</a></li>
+                <li><i class="iconfont">&#xe69e;</i><a href="gbook.html">留言</a></li>
+                <li id="login"></li>
+                <li id="collect"></li>
+                <li id="out"></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+<article>
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+        <legend>收藏文章</legend>
+    </fieldset>
+
+    <div style="padding: 20px; background-color: #F2F2F2;">
+        <div class="layui-row layui-col-space15" id="collects">
+
+        </div>
+    </div>
+    <div class="layui-card-body ">
+        <div class="page">
+            <div id="demo0"></div>
+        </div>
+    </div>
+</article>
+<footer>
+    <p>Design by <a href="index.html">DCF个人博客</a> <a href="index.html">浙备-123456号</a></p>
+</footer>
+<script src="js/nav.js"></script>
+<script type="text/javascript" src="layui/layui.js"></script>
+<script  charset="utf-8" src="js/pblog/findCollect.js"></script>
+<script>
+    layui.use(['form','layer','jquery','element','laypage','upload','layedit'],function(){
+        var form = layui.form;
+        var layer = layui.layer;
+        var upload = layui.upload;
+
+        $(document).on('click', '.del_collect', function() {
+            var id = $(this).attr("data-id");
+            //alert(id);
+            $(this).closest('.layui-col-md12').css("display", "none");
+            // var cont=document.getElementsByClassName("layui-laypage-count").innerHTML;
+            // var num = parseInt(cont);
+            // alert(cont);
+            //alert(typeof id);
+            $.ajax({
+                url:'http://localhost:8080/pblog/deleteOneCollect',
+                type:'post',
+                data:{"id":id},
+                dataType:'json',
+                success:function(data){
+                    if(data=="1"){
+
+                        layer.msg('删除收藏成功');
+                    }else if(data=="0"){
+                        layer.msg("删除失败");
+                    }else {
+                        layer.msg("网络故障,请刷新");
+                    }
+
+                },
+                error:function(){
+                    layer.msg("网络故障");
+                }
+            })
+
+
+        });
+
+
+
+    })
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,195 @@
+<!DOCTYPE>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>首页_戴辰飞个人博客</title>
+  <meta name="keywords" content="个人博客,戴辰飞个人博客,戴辰飞" />
+  <meta name="description" content="戴辰飞个人博客" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="css/base.css" rel="stylesheet">
+  <link href="css/index.css" rel="stylesheet">
+  <link href="css/m.css" rel="stylesheet">
+  <!--<link rel="stylesheet" href="layui/css/layui.css">-->
+  <link rel="stylesheet" href="css/font.css">
+
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="stylesheet" href="css/fenye.css">
+  <script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+
+
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+<script>
+window.onload = function ()
+{
+	var oH2 = document.getElementsByTagName("h2")[0];
+	var oUl = document.getElementsByTagName("ul")[0];
+	oH2.onclick = function ()
+	{
+		var style = oUl.style;
+		style.display = style.display == "block" ? "none" : "block";
+		oH2.className = style.display == "block" ? "open" : ""
+	}
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="tophead">
+    <div class="logo"><a href="index.html">DCF个人博客</a></div>
+    <div id="mnav">
+      <h2><span class="navicon"></span></h2>
+      <ul>
+        <li><a href="index.html">网站首页</a></li>
+
+
+        <li><a href="gbook.html">留言</a></li>
+
+      </ul>
+    </div>
+    <nav class="topnav" id="topnav">
+      <ul>
+        <li><a href="index.html">网站首页</a></li>
+
+        <li><i class="iconfont">&#xe69e;</i><a href="gbook.html">留言</a></li>
+        <li id="login"></li>
+        <li id="collect"></li>
+        <li id="out"></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<div class="picshow">
+  <ul>
+    <li><a href="#"><i><img src="images/b01.jpg"></i>
+      <div class="font">
+        <h3>DCF个人博客</h3>
+      </div>
+      </a></li>
+    <li><a href="#"><i><img src="images/b02.jpg"></i>
+      <div class="font">
+        <h3>DCF个人博客</h3>
+      </div>
+      </a></li>
+    <li><a href="#"><i><img src="images/b03.jpg"></i>
+      <div class="font">
+        <h3>DCF个人博客</h3>
+      </div>
+      </a></li>
+    <li><a href="#"><i><img src="images/b04.jpg"></i>
+      <div class="font">
+        <h3>DCF个人博客</h3>
+      </div>
+      </a></li>
+    <li><a href="#"><i><img src="images/b05.jpg"></i>
+      <div class="font">
+        <h3>DCF个人博客</h3>
+      </div>
+      </a></li>
+  </ul>
+</div>
+<article>
+  <div class="blogs" id="blogs">
+
+
+  </div>
+  <div class="sidebar">
+    <div class="about">
+      <div class="avatar"> <img id="tximg" src="" alt=""> </div>
+      <p class="abname"  id="name"></p>
+      <p class="abposition" id="job"></p>
+      <div class="abtext" id="info"> </div>
+    </div>
+    <div class="search">
+      <form  method="post" name="searchform" id="searchform" >
+        <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字'}" type="text">
+        <input name="show" value="title" type="hidden">
+        <input name="tempid" value="1" type="hidden">
+        <input name="tbname" value="news" type="hidden">
+        <input name="Submit" onclick="seach()" class="input_submit" value="搜索" type="button">
+      </form>
+    </div>
+
+    <div class="lmnav">
+      <h2 class="hometitle">联系方式</h2>
+      <ul class="navbor">
+        <li><a href="#" >联系本站作者</a>
+          <ul id="coll">
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="lmnav">
+      <h2 class="hometitle">分类导航</h2>
+      <ul class="navbor">
+        <li><a href="#" >文章分类</a>
+          <ul id="fl">
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="cloud">
+      <h2 class="hometitle">标签云</h2>
+      <ul id="bqy">
+
+      </ul>
+    </div>
+    <div class="paihang">
+      <h2 class="hometitle">点击排行</h2>
+      <ul id="hitslist">
+
+
+      </ul>
+    </div>
+    <div class="paihang">
+      <h2 class="hometitle">站长推荐</h2>
+      <ul id="recommendslist">
+
+
+      </ul>
+    </div>
+    <div class="links">
+      <h2 class="hometitle">友情链接</h2>
+      <ul id="links">
+
+      </ul>
+    </div>
+    <!--<div class="weixin">-->
+      <!--<h2 class="hometitle">官方微信</h2>-->
+      <!--<ul>-->
+        <!--<img src="images/wx.jpg">-->
+      <!--</ul>-->
+    <!--</div>-->
+  </div>
+  <div class="layui-card-body ">
+    <div class="page">
+      <div id="demo0"></div>
+    </div>
+  </div>
+</article>
+<div class="blank"></div>
+<footer>
+  <p>Design by <a href="index.html">DCF个人博客</a> <a href="index.html">浙备-123456号</a></p>
+</footer>
+
+
+
+<script type="text/javascript" src="layui/layui.js"></script>
+<script charset="utf-8" src="js/jquery-2.1.1.min.js"></script>
+<script  charset="utf-8" src="js/pblog/index.js"></script>
+<script  charset="utf-8" src="js/pblog/findInfo.js"></script>
+<script  charset="utf-8" src="js/pblog/selectArticle.js"></script>
+<script  charset="utf-8" src="js/pblog/selectType.js"></script>
+<script  charset="utf-8" src="js/pblog/selectTag.js"></script>
+<script  charset="utf-8" src="js/pblog/findHits.js"></script>
+<script  charset="utf-8" src="js/pblog/findRecommend.js"></script>
+<script  charset="utf-8" src="js/pblog/findlink.js"></script>
+<script src="js/nav.js"></script>
+<script type="text/javascript">
+
+</script>
+</body>
+</html>

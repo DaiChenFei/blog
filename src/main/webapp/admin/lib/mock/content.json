@@ -1,0 +1,7 @@
+{
+    "code":200,
+    "message":"获取成功",
+    "data":{
+        "content":"这是Ajax获取的内容"
+    }
+}

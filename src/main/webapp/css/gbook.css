@@ -1,0 +1,54 @@
+.comment_list {
+    padding-top:40px;
+    width:700px;
+    margin:0 auto;
+}
+.fuwenben {
+    padding-top:40px;
+    width:700px;
+    margin:0 auto;
+}
+.comment_details {
+    float:left;
+}
+.comment_content {
+    margin-top:10px;
+    font-size:16px;
+    text-indent:2em;
+}
+.comment_add_or_last {
+
+    margin:0 auto;
+    clear: both;
+    width:600px;
+    height:40px;
+    background: #F0F0F0;
+    text-align: center;
+    line-height: 40px;   //行高（与div保持同高，垂直居中写法）
+}
+.imgdiv{
+    float:left;
+
+}
+.imgcss {
+    width:50px;
+    height:50px;
+    border-radius: 10%;
+}
+.comment_name {
+    margin-left:10px;
+    color:#3D9EEA;
+    font-size:15px;
+    font-weight: bolder;
+}
+.layui-icon {
+    font-size: 10px;
+    color: grey;
+}
+.del {
+    margin-left: 55px;
+}
+.timeRight{
+
+    float: right;
+}

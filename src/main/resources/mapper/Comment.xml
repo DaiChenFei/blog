@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daofei.mapper.CommentMapper">
+
+
+    <!--<resultMap type="Comment" id="CommentBean">-->
+        <!--<id column="id" property="id" />-->
+        <!--<result column="aid" property="aid" />-->
+        <!--<result column="uid" property="uid" />-->
+        <!--<result column="ccontent" property="content" />-->
+        <!--<result column="writein" property="writein" />-->
+        <!--<result column="state" property="state" />-->
+
+        <!--&lt;!&ndash; 多对一的关系 &ndash;&gt;-->
+        <!--&lt;!&ndash; property: 指的是属性名称, javaType：指的是属性的类型 &ndash;&gt;-->
+        <!--<association property="uimg" javaType="User">-->
+            <!--&lt;!&ndash;<id column="cid" property="id"/>&ndash;&gt;-->
+            <!--<result column="imgurl" property="name"/>-->
+        <!--</association>-->
+    <!--</resultMap>-->
+
+    <!--<select id="listById"  resultMap="CommentBean" parameterType="_int">-->
+        <!--select u.imgurl 'uimg',c.* from comment c left join user u on u.id=c.uid where c.aid=#{id}-->
+    <!--</select>-->
+    <select id="list"  resultType="Comment">
+        select * from comment
+    </select>
+    <select id="selectCommentById" resultType="Comment">
+        select * from   comment where id= #{id}
+    </select>
+    <select id="selectCommentByAid" resultType="Comment">
+         select u.imgurl 'uimg',c.* from comment c left join user u on u.id=c.uid where c.aid=#{id} and c.state=1
+    </select>
+    <select id="selectCommentByContentAndTime" parameterType="map" resultType="Comment">
+        select * from   comment where content like concat('%',#{content},'%') and writein>=#{old} and writein <![CDATA[<=]]> #{new}
+    </select>
+    <delete id="deleteCommentById" parameterType="_int" >
+        delete from comment where id= #{id}
+    </delete>
+    <delete id="deleteCommentByAid" parameterType="_int" >
+        delete from comment where aid= #{aid}
+    </delete>
+    <delete id="deleteCommentByUid" parameterType="_int" >
+        delete from comment where uid= #{uid}
+    </delete>
+    <insert id="addComment" useGeneratedKeys="true" keyProperty="id" parameterType="Comment" >
+         insert into comment (aid,uid,content,state) values (#{aid},#{uid},#{content},#{state})
+    </insert>
+    <update id="updateState" parameterType="Comment" >
+        update comment set state=#{state} where id=#{id}
+    </update>
+
+    <update id="updateContent" parameterType="Comment" >
+        update comment set content=#{content}  where id=#{id}
+    </update>
+</mapper>
+

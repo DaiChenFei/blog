@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+        <!DOCTYPE mapper
+                PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daofei.mapper.ArticleMapper">
+    <resultMap type="Article" id="ArticleBean">
+        <id column="wid" property="id" />
+        <result column="tid" property="tid" />
+        <result column="auid" property="uid" />
+        <result column="tagid" property="tagid" />
+        <result column="title" property="title" />
+        <result column="acontent" property="content" />
+        <result column="createtime" property="createtime" />
+        <result column="updatetime" property="updatetime" />
+        <result column="hits" property="hits" />
+        <result column="xh" property="xh" />
+        <result column="status" property="status" />
+        <result column="abscontent" property="abscontent" />
+        <result column="imgurl" property="imgurl" />
+        <!-- 一对多的关系 -->
+        <!-- property: 指的是集合属性的值, ofType：指的是集合中元素的类型 -->
+        <collection property="commentList" ofType="Comment">
+            <id column="cid" property="id" />
+            <result column="aid" property="aid" />
+            <result column="userid" property="uid" />
+            <result column="ccontent" property="content" />
+            <result column="writein" property="writein" />
+            <result column="state" property="state" />
+        </collection>
+    </resultMap>
+
+    <!-- 关联查询表 -->
+    <select id="OneArticleById" resultMap="ArticleBean" parameterType="_int">
+        select a.*,c.*,a.id 'wid',a.uid 'auid',a.content 'acontent',c.id 'cid',c.content 'ccontent',c.uid 'userid',c.aid 'aid' from article a left join comment c on a.id=c.aid where a.id=#{id}
+    </select>
+
+    <insert id="addArticle" parameterType="Article" >
+        insert into article (uid,tid,tagid,title,content,status,hits,xh,abscontent,imgurl) values (#{uid},#{tid},#{tagid},#{title},#{content},#{status},#{hits},#{xh},#{abscontent},#{imgurl})
+    </insert>
+
+    <select id="list" resultType="Article">
+        select * from   article
+    </select>
+    <select id="listByStatus" resultType="Article">
+        select * from   article where status=1
+    </select>
+    <select id="selectArticleById" resultType="Article">
+        select * from   article where id= #{id}
+    </select>
+    <select id="selectArticleByHits" resultType="Article">
+        select * from article where status=1 order by hits desc limit 5;
+    </select>
+    <select id="selectArticleForCensus" resultType="Article">
+        select hits,title from article where status=1 order by hits desc limit 5;
+    </select>
+    <update id="updateName" parameterType="Article" >
+        update article set name=#{name} where id=#{id}
+    </update>
+    <update id="updateArticle" parameterType="Article" >
+        update article set tid=#{tid},title=#{title},tagid=#{tagid},content=#{content},status=#{status},abscontent=#{abscontent},imgurl=#{imgurl}  where id=#{id}
+    </update>
+    <delete id="deleteArticleById" parameterType="_int" >
+        delete from article where id= #{id}
+    </delete>
+    <update id="updateStatus" parameterType="Article" >
+        update article set status=#{status} where id=#{id}
+    </update>
+    <update id="updateLike" parameterType="Article" >
+        update article set xh=#{xh} where id=#{id}
+    </update>
+    <update id="updateHits" parameterType="Article" >
+        update article set hits=#{hits} where id=#{id}
+    </update>
+    <select id="selectArticleByTitleAndTime" parameterType="map" resultType="Article">
+        select * from   article where title like concat('%',#{title},'%') and createtime>=#{old} and createtime <![CDATA[<=]]> #{new}
+    </select>
+    <select id="selectArticleByTitle" parameterType="map" resultType="Article">
+        select * from   article where title like concat('%',#{title},'%') and status=1
+    </select>
+    <select id="selectArticleByTag" parameterType="_int" resultType="Article">
+        select * from   article where status=1 and tagid like concat('%',#{tagid},'%')
+    </select>
+    <select id="selectArticleByType" parameterType="_int" resultType="Article">
+        select * from   article where tid =#{lx} and status=1
+    </select>
+    <select id="selectArticleByAsc" parameterType="_int" resultType="Article">
+        select id,title from   article where status=1 and id>#{id} order by id asc limit 1
+    </select>
+    <select id="selectArticleByDesc" parameterType="_int" resultType="Article">
+        select id,title from    article where status=1 and id &lt;#{id} order by id desc limit 1
+    </select>
+</mapper>
+

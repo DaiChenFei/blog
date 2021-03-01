@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daofei.mapper.LinkMapper">
+
+
+    <select id="listByState"  resultType="Link">
+        select * from link where state=1
+    </select>
+    <select id="list"  resultType="Link">
+        select * from link
+    </select>
+    <select id="selectLinkById" resultType="Link">
+        select * from   link where id= #{id}
+    </select>
+
+
+    <delete id="deleteLinkById" parameterType="_int" >
+        delete from link where id= #{id}
+    </delete>
+    <insert id="addLink" useGeneratedKeys="true" keyProperty="id" parameterType="Link" >
+         insert into link (url,info,state) values (#{url},#{info},#{state})
+    </insert>
+    <update id="updateState" parameterType="Link" >
+        update link set state=#{state} where id=#{id}
+    </update>
+
+    <update id="updateInfo" parameterType="Link" >
+        update link set url=#{url},info=#{info}  where id=#{id}
+    </update>
+    <update id="updateUrl" parameterType="Link" >
+        update link set url=#{url}  where id=#{id}
+    </update>
+</mapper>
+

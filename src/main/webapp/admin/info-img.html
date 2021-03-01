@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    
+    <head>
+        <meta charset="UTF-8">
+        <title>欢迎页面-X-admin2.2</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
+        <link rel="stylesheet" href="./css/font.css">
+        <link rel="stylesheet" href="./css/xadmin.css">
+        <script type="text/javascript" src="./lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="./js/xadmin.js"></script>
+        <script type="text/javascript" src="./js/jquery.min.js"></script>
+        <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
+        <!--[if lt IE 9]>
+            <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
+            <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]--></head>
+    
+    <body>
+        <div class="layui-fluid">
+            <div class="layui-row">
+                <form class="layui-form">
+                    <div class="layui-col-md3 layui-col-xs5">
+                        <div class="layui-upload-list ">
+                            <img class="layui-upload-img" id="demo1" width="600px" height="600px" onclick="openImg('demo1')" >
+                            <input id="fileName" type="text" lay-verify="fileName"
+                                   autocomplete="off" class="layui-input" disabled>
+                            <input id="fileName2" type="text" lay-verify="fileName"
+                                   autocomplete="off" class="layui-input" disabled>
+                            <input id="credential_hide" name="credentialOne" type="hidden" lay-verify="credentialOne"
+                                   autocomplete="off" class="layui-input">
+                            <button id="upload_img" type="button" hidden></button>
+                            <button class="layui-btn" id="preview_img" type="button">
+                                预览图片
+                            </button>
+                            <button class="layui-btn layui-btn-normal btn-submit" id="fake">
+                                确定上传
+                            </button>
+                        </div>
+                    </div>
+                    <!--<div class="layui-form-item">-->
+                        <!--<label for="L_repass" class="layui-form-label"></label>-->
+                        <!--<button class="layui-btn" lay-filter="add" lay-submit="">增加</button></div>-->
+
+
+        </form>
+        </div>
+        </div>
+        <!--<script type="text/javascript" src="js/findInfo.js"></script>-->
+        <script>layui.use(['form', 'layer','upload'],
+            function() {
+                $ = layui.jquery;
+                var form = layui.form,
+                layer = layui.layer
+                , upload = layui.upload;
+                //自定义验证规则
+                form.verify({
+                    name: function(value) {
+                        if (value.length < 3) {
+                            return '昵称至少得5个字符啊';
+                        }
+                    }
+                });
+                /*上传图片*/
+                upload.render({
+                    elem: '#preview_img'
+                    , url: '../admin/uploadInfoImg'
+                    , size: 1024
+                    , auto: false //不自动上传
+                    , bindAction: '#upload_img' //上传绑定到隐藏按钮
+                    , choose: function (obj) {
+                        //预读本地文件
+                        obj.preview(function (index, file, result) {
+                            $('#fileName').val(file.name);  //展示文件名
+                            $('#demo1').attr('src', result); //图片链接（base64）
+                        })
+                    }
+                    , done: function (res) {
+                        $('#credential_hide').val(res.imgresult); //隐藏输入框赋值
+                        //$('#fileName2').val(res.imgresult);  //展示成功后的文件名
+                        if(res.imgresult=='1'){
+                            $('#fileName2').val('上传成功');
+                            //layer.msg('上传成功！', {icon: 6});
+                            layer.alert("更新头像成功", {
+                                    icon: 6,time:3000
+                                },
+                                function() {
+                                    // 获得frame索引
+                                    var index = parent.layer.getFrameIndex(window.name);
+                                    //关闭当前frame
+                                    parent.layer.close(index);
+                                    xadmin.father_reload();
+                                });
+                        }else{
+                            layer.msg('上传失败！', {icon: 5});
+                        }
+                        //$('#submitForm').click(); //上传成功后单击隐藏的提交按钮
+                    }
+                    , error: function (index, upload) {
+                        layer.msg('上传失败！' + index, {icon: 5});
+                    }
+                });
+                var closeImg;
+                //预览放大图片
+                function openImg(id){
+
+                    //获取头像地址
+                    var src=$("#demo1").attr("src");
+                    closeImg=layer.msg(
+                        "<img src='"+src+"'  width='100%' height='100%' onclick=closeImg2()>",{
+                            id:'tupian',
+                            time :0,
+                            area: ['auto', 'auto'],
+                            shade :0.3,//d打开遮罩
+                            shadeClose:true,//点击遮罩关闭
+                            anim: 5//出现的动漫效果
+                        }
+                    );
+                }
+
+                //关闭图片
+                function closeImg2(){
+                    if(closeImg!=null){
+                        layer.close(closeImg);
+                    }
+                }
+                //确定按钮点击事件
+                $('#fake').click(function () {
+                    $(this).attr({'disabled': 'disabled'});
+                    $('#upload_img').click();//单击隐藏的上传按钮
+                    //layer.msg('上传失败！');
+                });
+
+
+            });</script>
+
+    </body>
+
+</html>

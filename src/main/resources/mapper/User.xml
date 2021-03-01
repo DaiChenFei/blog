@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daofei.mapper.UserMapper">
+
+    <select id="get" parameterType="_int" resultType="User">
+        select * from   user  where id= #{id}
+    </select>
+
+    <select id="list" resultType="User">
+        select * from   user
+    </select>
+    <select id="selectUserById" resultType="User">
+        select * from   user where id= #{id}
+    </select>
+    <select id="selectUserByUsername" resultType="User" parameterType="string">
+        select * from   user where username= #{username}
+    </select>
+    <select id="selectUserByUsernameAndTime" parameterType="map" resultType="User">
+        select * from   user where username like concat('%',#{username},'%') and register>=#{old} and register <![CDATA[<=]]> #{new}
+    </select>
+    <delete id="deleteUserById" parameterType="_int" >
+        delete from user where id= #{id}
+    </delete>
+    <insert id="addUser" parameterType="User" >
+         insert into user (username,nickname,password,imgurl,state,email,phone,sex) values (#{username},#{nickname},#{password},#{imgurl},#{state},#{email},#{phone},#{sex})
+    </insert>
+    <update id="updateState" parameterType="User" >
+        update user set state=#{state} where id=#{id}
+    </update>
+    <update id="updatePass" parameterType="User" >
+        update user set password=#{password} where id=#{id}
+    </update>
+    <update id="updateNick" parameterType="User" >
+        update user set nickname=#{nickname} where id=#{id}
+    </update>
+    <update id="updateEmail" parameterType="User" >
+        update user set email=#{email} where id=#{id}
+    </update>
+    <update id="updatePhone" parameterType="User" >
+        update user set phone=#{phone} where id=#{id}
+    </update>
+    <update id="updateSex" parameterType="User" >
+        update user set sex=#{sex} where id=#{id}
+    </update>
+    <update id="updateImg" parameterType="User" >
+        update user set imgurl=#{imgurl} where id=#{id}
+    </update>
+    <update id="updateInfo" parameterType="User" >
+        update user set email=#{email}, nickname=#{nickname}, phone=#{phone}  where id=#{id}
+    </update>
+</mapper>
+

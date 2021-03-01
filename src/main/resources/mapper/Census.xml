@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.daofei.mapper.CensusMapper">
+
+    <select id="getCensus" resultType="Census">
+        SELECT sum(unum) unum,sum(mnum) mnum,sum(anum) anum FROM (
+
+    SELECT count(user.id) as unum,0 mnum,0 anum FROM user
+
+    UNION ALL
+
+    SELECT 0 unum,count(message.id) as munm,0 anum FROM message
+
+    UNION ALL
+
+    SELECT 0 unum,0 mnum,count(article.id) as anum FROM article
+
+    ) t;
+    </select>
+
+</mapper>
+

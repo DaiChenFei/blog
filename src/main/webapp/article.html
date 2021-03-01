@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="gb2312">
+<title>内容页_DCF博客</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="css/base.css" rel="stylesheet">
+<link href="css/index.css" rel="stylesheet">
+<link href="css/m.css" rel="stylesheet">
+<script src="js/jquery-2.1.1.min.js"></script>
+  <link rel="stylesheet" href="css/font.css">
+  <link rel="stylesheet" type="text/css" href="./layui/css/layui.css" media="all">
+  <link rel="stylesheet" type="text/css" href="./css/comment.css" media="all">
+<!--[if lt IE 9]>
+<script src="js/modernizr.js"></script>
+<![endif]-->
+<script>
+window.onload = function ()
+{
+	var oH2 = document.getElementsByTagName("h2")[0];
+	var oUl = document.getElementsByTagName("ul")[0];
+	oH2.onclick = function ()
+	{
+		var style = oUl.style;
+		style.display = style.display == "block" ? "none" : "block";
+		oH2.className = style.display == "block" ? "open" : ""
+	}
+}
+</script>
+</head>
+<body>
+<header>
+  <div class="tophead">
+    <div class="logo"><a href="index.html">DCF个人博客</a></div>
+    <div id="mnav">
+      <h2><span class="navicon"></span></h2>
+      <ul>
+        <li><a href="index.html">网站首页</a></li>
+
+      </ul>
+    </div>
+    <nav class="topnav" id="topnav">
+      <ul>
+        <li><a href="index.html">网站首页</a></li>
+
+        <li><i class="iconfont">&#xe69e;</i><a href="gbook.html">留言</a></li>
+
+        <li id="login"></li>
+        <li id="collect"></li>
+        <li id="out"></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<article>
+  <h1 class="t_nav"><span>您现在的位置是：首页 > 文章 > 内容</span><a href="index.html" class="n1">网站首页</a><a href="#" class="n2">内容</a></h1>
+  <div class="infos">
+    <div class="newsview">
+      <h3 class="news_title" id="title"></h3>
+      <div class="news_author"><span class="au01"><a href="">DCF</a></span><span class="au02" id="cjtime"></span><span class="au03" >共<b id="hits"></b>人围观</span><span class="au03" ><b id="likes"></b>人喜欢</span><a class="dianzan"><i class="iconfont">&#xe7ce;</i>点赞</a> <a class="collect"></a></div>
+      <div class="tags" id="tags"></div>
+      <div class="news_about" id="abscontent"><strong>简介</strong></div>
+      <div class="news_infos" id="content"> </div>
+    </div>
+    <div class="share"> </div>
+    <div class="nextinfo">
+
+
+    </div>
+
+    <div class="news_pl">
+      <input type="hidden" id="aid"/>
+      <input type="hidden" id="uid"/>
+      <input type="hidden" id="imgurl"/>
+      <h2>文章评论</h2>
+      <ul id="comment" class="comment_list">
+
+
+      </ul>
+      <ul id="fuwenben"  class="fuwenben">
+
+      </ul>
+
+    </div>
+
+
+  </div>
+  <div class="sidebar">
+    <div class="search">
+      <!--<form  name="searchform" id="searchform">-->
+        <input name="keyboard" id="keyboard" class="input_text" value="请输入关键字" style="color: rgb(153, 153, 153);" onfocus="if(value=='请输入关键字'){this.style.color='#000';value=''}" onblur="if(value==''){this.style.color='#999';value='请输入关键字'}" type="text">
+        <input name="show" value="title" type="hidden">
+        <input name="tempid" value="1" type="hidden">
+        <input name="tbname" value="news" type="hidden">
+        <input name="Submit" class="input_submit"  id="seach" value="搜索" type="submit">
+      <!--</form>-->
+    </div>
+    <div class="lmnav">
+      <h2 class="hometitle">栏目导航</h2>
+      <ul class="navbor">
+        <li><a href="#">关于我</a></li>
+        <li><a href="share.html">文章分类</a>
+          <ul id="fl">
+
+          </ul>
+        </li>
+
+
+      </ul>
+    </div>
+    <div class="paihang">
+      <h2 class="hometitle">点击排行</h2>
+      <ul id="hitslist">
+
+
+      </ul>
+    </div>
+    <div class="cloud">
+      <h2 class="hometitle">标签云</h2>
+      <ul id="bqy">
+
+      </ul>
+    </div>
+    <div class="paihang">
+      <h2 class="hometitle">站长推荐</h2>
+      <ul id="recommendslist">
+
+
+      </ul>
+    </div>
+    <div class="weixin">
+      <!--<h2 class="hometitle">官方微信</h2>-->
+      <!--<ul>-->
+        <!--<img src="images/wx.jpg">-->
+      <!--</ul>-->
+    </div>
+
+  </div>
+</article>
+<footer>
+  <p>Design by <a href="index.html">DCF个人博客</a> <a href="index.html">浙备-123456号</a></p>
+</footer>
+<script src="js/nav.js"></script>
+<script type="text/javascript" src="./layui/layui.js"></script>
+<script  type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+<script charset="utf-8" type="text/javascript" src="js/pblog/article.js"></script>
+<script charset="utf-8" type="text/javascript" src="js/pblog/selectArticle.js"></script>
+<script charset="utf-8" type="text/javascript" src="js/pblog/selectType.js"></script>
+<script charset="utf-8" type="text/javascript" src="js/pblog/selectTag.js"></script>
+<script charset="utf-8" type="text/javascript" src="js/pblog/findHits.js"></script>
+<script  charset="utf-8" src="js/pblog/findRecommend.js"></script>
+<script type="text/javascript">
+jQuery.noConflict();
+jQuery(function() { 
+    var elm = jQuery('#left_flow2'); 
+    var startPos = jQuery(elm).offset().top; 
+    jQuery.event.add(window, "scroll", function() { 
+        var p = jQuery(window).scrollTop(); 
+        jQuery(elm).css('position',((p) > startPos) ? 'fixed' : ''); 
+
+        jQuery(elm).css('top',((p) > startPos) ? '0' : '');
+    }); 
+}); 
+</script>
+</body>
+</html>

@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>文章列表--layui后台管理模板 2.0</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <link rel="stylesheet" href="./layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="./css/public.css" media="all" />
+    <script type="text/javascript" src="./js/jquery.min.js"></script>
+</head>
+<body class="childrenBody">
+<form class="layui-form layui-row layui-col-space10" method="post" id="adminlogin">
+    <div class="layui-col-md9 layui-col-xs12">
+        <div class="layui-row layui-col-space10">
+            <div class="layui-col-md9 layui-col-xs7">
+                <div class="layui-form-item magt3">
+                    <label class="layui-form-label">文章标题</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" id="L_id">
+                        <input type="text" id="title" class="layui-input newsName" lay-verify="newsName" placeholder="请输入文章标题">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">内容摘要</label>
+                    <div class="layui-input-block">
+                        <textarea placeholder="请输入内容摘要" id="abscontent" class="layui-textarea abstract"></textarea>
+
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md3 layui-col-xs5">
+                <div class="layui-upload-list ">
+                    <img class="layui-upload-img" id="demo1" width="100px" height="100px" onclick="openImg('demo1')" >
+                    <input id="fileName" type="text" lay-verify="fileName"
+                           autocomplete="off" class="layui-input" disabled>
+                    <input id="fileName2" type="text" lay-verify="fileName"
+                           autocomplete="off" class="layui-input" disabled>
+                    <input id="credential_hide" name="credentialOne" type="hidden" lay-verify="credentialOne"
+                           autocomplete="off" class="layui-input">
+                    <button id="upload_img" type="button" hidden></button>
+                    <button class="layui-btn" id="preview_img" type="button">
+                        上传图片
+                    </button>
+                    <button class="layui-btn layui-btn-normal btn-submit" id="fake">
+                        确定
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+        <div class="layui-form-item ">
+            <label class="layui-form-label">文章内容</label>
+            <div class="layui-input-block">
+                <!--<textarea class="layui-textarea layui-hide" name="content" lay-verify="content" id="news_content"></textarea>-->
+                <textarea  name="content" ay-verify="content"  id="edit"></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="layui-col-md3 layui-col-xs12">
+        <blockquote class="layui-elem-quote title"><i class="seraph icon-caidan"></i> 标签目录</blockquote>
+        <div class="border category">
+            <div class="" id="tags">
+                <!--<p><input type="checkbox" name="news" title="新闻" lay-skin="primary" /></p>-->
+                <!--<p><input type="checkbox" name="goods" title="商品" lay-skin="primary" /></p>-->
+                <!--<p><input type="checkbox" name="notice" title="公告" lay-skin="primary" /></p>-->
+                <!--<p><input type="checkbox" name="images" title="图片" lay-skin="primary" /></p>-->
+            </div>
+        </div>
+        <blockquote class="layui-elem-quote title magt10"><i class="layui-icon">&#xe609;</i> 发布</blockquote>
+        <div class="border">
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="layui-icon">&#xe60e;</i> 状　态</label>
+                <div class="layui-input-block newsStatus">
+                    <select id="status" name="status" lay-verify="required">
+                        <option value="0">保存草稿</option>
+                        <option value="1" >直接上线</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <label class="layui-form-label"><i class="layui-icon">&#xe609;</i>分  类</label>
+                <div class="layui-input-block newsStatus">
+                    <select id="type" name="type" lay-verify="required">
+                        <!--<option value="0">保存草稿</option>-->
+                        <!--<option value="1">直接上线</option>-->
+                    </select>
+                </div>
+            </div>
+
+            <!--<div class="layui-form-item newsTop">-->
+                <!--<label class="layui-form-label"><i class="seraph icon-zhiding"></i> 置　顶</label>-->
+                <!--<div class="layui-input-block">-->
+                    <!--<input type="checkbox" name="newsTop" lay-skin="switch" lay-text="是|否">-->
+                <!--</div>-->
+            <!--</div>-->
+            <hr class="layui-bg-gray" />
+            <div class="layui-right">
+                <!--<a class="layui-btn layui-btn-sm" lay-filter="addNews" lay-submit><i class="layui-icon">&#xe609;</i>发布</a>-->
+                <input class="layui-btn  layui-btn-sm"  value="更新" lay-submit lay-filter="login" style="width:100%;" type="submit">
+                <br>
+                <!--<input class="layui-btn layui-btn-primary layui-btn-sm"  value="清空" style="width:100%;magin:auto;" onclick="location.reload()" type="button">-->
+            </div>
+        </div>
+    </div>
+</form>
+<script type="text/javascript" src="./lib/layui/layui.js"></script>
+
+<script>
+
+
+    var aid;
+    /^http(s*):\/\//.test(location.href) || alert('请先部署到 localhost 下再访问');
+    layui.extend({
+        tinymce: '{/}./lib/tinymce/tinymce'
+    }).use(['tinymce', 'util', 'layer','form','upload'], function () {
+
+        var t = layui.tinymce
+            , util = layui.util
+            , layer = layui.layer
+            , $ = layui.$
+            , form = layui.form
+            , upload = layui.upload;
+        var artcontent;
+        var edit = t.render({
+            elem: "#edit"
+            , height:700
+            // ...
+            // 其余配置可参考官方文档
+        },function(opt,edit){
+            //加载完成后回调
+
+            edit.insertContent(artcontent);
+        });
+
+        /*上传图片*/
+        upload.render({
+            elem: '#preview_img'
+            , url: '../admin/uploadImg'
+            , size: 10240
+            , auto: false //不自动上传
+            , bindAction: '#upload_img' //上传绑定到隐藏按钮
+            , choose: function (obj) {
+                //预读本地文件
+                obj.preview(function (index, file, result) {
+                    $('#fileName').val(file.name);  //展示文件名
+                    $('#demo1').attr('src', result); //图片链接（base64）
+                })
+            }
+            , done: function (res) {
+                $('#credential_hide').val(res.src); //隐藏输入框赋值
+                $('#fileName2').val(res.src);  //展示成功后的文件名
+                //$('#submitForm').click(); //上传成功后单击隐藏的提交按钮
+            }
+            , error: function (index, upload) {
+                layer.msg('上传失败！' + index, {icon: 5});
+            }
+        });
+
+
+        //
+        $(document).ready(function() {
+            var url = window.location.search;
+            var type = url.substring(1, 4);
+            if (type == "aid") {
+                console.log(type);
+                var tid = url.substring(5, url.length);
+                console.log(tid);
+                if (tid != "") {
+                    // seachType(tid,1);
+                    console.log("主页分类2" + type + tid);
+
+                    getArticle(tid);
+
+
+                    var urllocal = window.location.href;
+                    var valiable = urllocal.split("?")[0];
+                    window.history.pushState({}, 0, valiable);
+                } else {
+                    //getPeopleList(1,0,10);//获取人才列表
+                    console.log("主页1");
+                }
+
+            }
+        })
+        function  getArticle(id) {
+            $.ajax({
+                url : "http://localhost:8080/pblog/oneArticle2",//请求地址
+                dataType : "json",//数据格式
+                data:{"id":id},
+                type : "post",//请求方式
+                async : false,//是否异步请求
+                success : function(data) {
+                    console.log("get"+data.code+data.msg);
+                    console.log(data.length);
+
+                    if(data.code=="1"){
+                        var sj=data.data;
+                        var status=sj.status;
+                        var types=data.types;
+                        var tags=data.tag;
+                        var tArr=new Array();
+                        var tname;
+                        var tagsName='';
+                        tArr=sj.tagid.split(',');
+                        var newArray = tArr.filter(function(v){return v!==''});//去掉空格后的，字段，不会出现
+
+                        $("#L_id").val(sj.id);
+                        console.log("数据lid"+sj.id);
+                        $("#title").val(sj.title);
+                        $("#abscontent").val(sj.abscontent);
+                        $('#demo1').attr('src','../uploadFile/'+ sj.imgurl);
+                        $('#fileName').val(sj.imgurl);
+                        //edit.get('#edit').insertContent('<b>插入内容</b>');
+
+                        for(var i=0;i<tags.length;i++){    //遍历数组
+                            var ls = tags[i];
+                            // console.log("接收tags数组");
+                            //$("#usershuju").empty();
+                            for(var m=0;m<tArr.length;m++){
+                                if (tags[i].id==tArr[m]){
+                                    $("#tags").append(` <p><input type="checkbox" id="tag${ls.id}" checked="true" name="tags" value="${ls.id}"  title="${ls.name}" lay-skin="primary" /></p>`);
+                                    break;
+                                }
+                            }
+                            $("#tags").append(` <p><input type="checkbox" id="tag${ls.id}" name="tags" value="${ls.id}"  title="${ls.name}" lay-skin="primary" /></p>`);
+                        }
+
+                        for(var i=0;i<types.length;i++){    //遍历data数组
+                            var ls = types[i];
+                            // console.log("接收type数组");
+                            $("#type").append(` <option value="${ls.id}">${ls.name}</option>`);
+                            if (ls.id==sj.tid){
+                                $("#type").val(sj.tid);
+                            }
+                        }
+
+                        artcontent=sj.content;
+                        if(status=="1"){
+                            // $('#status').attr('selected','true');
+                            $('#status').val("1");
+                            form.render();//重新渲染form表单
+                        }else {
+                            $('#status').val("0");
+                            form.render();
+                        }
+
+
+                    }else if(data.code=="0"){
+                        layer.msg("没有文章");
+                    }else {
+                        layer.msg("网络故障");
+                    }
+
+                },
+            })
+        }
+
+        //确定按钮点击事件
+        $('#fake').click(function () {
+            $(this).attr({'disabled': 'disabled'});
+            $('#upload_img').click();//单击隐藏的上传按钮
+            //layer.msg('上传失败！');
+        });
+
+        form.on('submit(login)', function(data){
+            // alert(888)
+            var isStr="";
+            var number=0;
+            $('#tags input').each(function(index, el) {
+                if($(this).prop('checked')){
+
+                    isStr = isStr + "," + $(this).val();
+                    number++;
+
+                }
+            });
+            console.log(isStr.toString());
+            var aid=document.getElementById("L_id").value;
+            var title=document.getElementById("title").value;
+            var content=document.getElementById("edit").value;
+            var imgurl=document.getElementById("fileName").value;
+            var text = t.get('#edit').getContent({format:'text'});
+            var atype=document.getElementById("type").value;
+            var status=document.getElementById("status").value;
+            //0草稿1直接上线
+            // layer.alert(text);
+            var content = t.get('#edit').getContent()
+            //var abscontent=text.substring(0,50);
+            var abscontent=document.getElementById("abscontent").value;
+            //layer.alert(content)
+            //发异步，把数据提交给后端
+            $.ajax({
+                url: "../admin/updateOneArticleInfo",
+                data: {"id":aid,"tid":atype,"tagid":isStr.toString(),"title":title,"content":content,"status":status,"hits":"0","like":"0","abscontent":abscontent,"imgurl":imgurl},
+                type:"Post",
+                dataType:"json",
+                success:function(data){
+                    console.log(data);
+                    if (data=="1"){
+                        console.log("准备跳转页面");
+                        //location.href="./index.html";
+                        layer.alert("标题:"+title+"的文章更新成功", {
+                            icon: 6
+                        });
+
+                    }else if (data=="-1"){
+                        console.log("失败面");
+                        layer.alert(data);
+                    }else{
+                        console.log("失败");
+                        layer.alert(data);
+                    }
+                }
+            });
+            /*layer.msg(JSON.stringify(data.field),function(){
+                location.href='index.html'
+            });*/
+            return false;
+        });
+
+
+
+    });
+
+</script>
+<script>
+    var closeImg;
+    //预览放大图片
+    function openImg(id){
+        //获取头像地址
+        var src=$("#demo1").attr("src");
+        closeImg=layer.msg(
+            "<img src='"+src+"'  width='100%' height='100%' onclick=closeImg2()>",{
+                id:'tupian',
+                time :0,
+                area: ['auto', 'auto'],
+                shade :0.3,//d打开遮罩
+                shadeClose:true,//点击遮罩关闭
+                anim: 5//出现的动漫效果
+            }
+        );
+    }
+    //关闭图片
+    function closeImg2(){
+        if(closeImg!=null){
+            layer.close(closeImg);
+        }
+    }
+</script>
+<style>
+    .tox .tox-dialog{
+        border: none;
+    }
+
+    .tox .tox-dialog,
+    .tox .tox-button,
+    .tox .tox-textarea,
+    .tox .tox-textfield,
+    .tox .tox-selectfield select,
+    .tox .tox-toolbar-textfield{
+        border-radius: 0;
+    }
+    .tox .tox-dialog-wrap__backdrop{
+        background-color: rgba(0, 0, 0, .3);
+    }
+</style>
+
+</body>
+</html>
