@@ -76,3 +76,6 @@
 3.x-admin，后台界面的模板
 
 4.https://github.com/zhongshaofa/layuimini，用户界面的登录页面取材于此
+
+5.how2j，框架的配置来源于此
+
